@@ -16,6 +16,20 @@ services:
             - 3306:3306
         networks:
             - symfony_app
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      links:
+        - db
+      ports:
+        - 8181:80
+      env_file: .env
+      environment:
+        MA_HOST: db
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      networks:
+        - symfony_app      
     php:
         build:
             context: ./php
